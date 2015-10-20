@@ -56,6 +56,9 @@ def logout():
 
 @bottle.route('/login')
 def login():
+    # This is the endpoint where the browser is redirected after a login. This is
+    # where the code and token are verified, and the user's username is saved
+    # signifying a successful login.
     session = bottle.request.environ.get('beaker.session')
     query_params = bottle.request.query.decode()
 
@@ -71,8 +74,13 @@ def login():
         r = requests.get(auth_hub_url+'verify/'+token,cert=('authhub_demo_client.crt', 'authhub_demo_client.key'))
         response = r.json()
 
+        # Check to see if token validation was successful by looking at the 'valid' attribute.
+        # Then get the username if it is defined.
         token_success = response.get('valid',False)
         username = response.get('username','NULL')
+
+        # If the token was successfully verified, save the username in the session.
+        # Then immediately revoke the token.
         if token_success:
             session['username'] = username
             r2 = requests.get(auth_hub_url+'revoke/'+token,cert=('authhub_demo_client.crt', 'authhub_demo_client.key')) # revoke token right away
