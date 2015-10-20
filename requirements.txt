@@ -1,0 +1,4 @@
+Beaker==1.7.0
+bottle==0.12.8
+requests==2.8.1
+wsgiref==0.1.2
