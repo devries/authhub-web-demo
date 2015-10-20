@@ -44,16 +44,28 @@ about the technologies involved are on [my
 blog](https://idolstarastronomer.com/authhub-part-1.html). The steps to login
 using AuthHub are:
 
-1. Generate a code to prevent cross-site request forgery.
+1. Generate a code to prevent cross-site request forgery (CSRF).
 2. Create a login link to AuthHub which sends the cross-site request code and
 a redirect URL via URL parameters.
 3. The user will enter credentials at AuthHub, if successful the user will be
 redirected back to your server via the redirect URL.
 4. The redirect back to your web server will include, on a successful login, a
-token to use in identifying the user, and the time at which that token
-expires.
+token to use in identifying the user, the CSRF code you sent earlier, and the
+time at which that token expires.
+5. Your server verifies using sessions or cookies that the CSRF code it
+received is the same one it sent with the user.
 5. Your server verifies the token it received with AuthHub and obtains the
 username of the authenticated user.
 6. Your server revokes the token it received.
 
+Detailed instructions about each of these steps are [documented in the
+blog](https://idolstarastronomer.com/authhub-part-2.html) and demonstrated in
+python in the `main_app.py` program.
 
+Acknowledgments
+---------------
+
+In order to provide multi-factor authentication tokens for the `testuser`
+account I make use of the [jQuery](http://jquery.com/) library as well as the
+[jsSHA](http://caligatio.github.io/jsSHA/) library. These are located in the
+`static` directory.
