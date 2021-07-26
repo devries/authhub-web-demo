@@ -1,6 +1,10 @@
 AuthHub Web Demo
 ================
 
+| :warning: WARNING                                               |
+|:----------------------------------------------------------------|
+| This repository is archived. The project has been discontinued. |
+
 This is a demonstration of how to use the AuthHub authentication service with
 python, requests, and the bottle microframework. Other frameworks will be just
 as easy. When following the instructions below, I show the prompt of the
